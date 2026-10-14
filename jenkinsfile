@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Smart Traffic Management project ready'
+            }
+        }
+
+        stage('Verify Docker Compose') {
+            steps {
+                bat 'docker compose version'
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+                bat 'docker compose build'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the console output.'
+        }
+    }
+}
